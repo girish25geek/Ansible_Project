@@ -1,0 +1,7 @@
+# Passwords for services
+postgres_password: "MyStrongPostgresPass123"
+redis_password: "MyRedisSecret123"
+jenkins_admin_password: "JenkinsPass123"
+
+# Custom Nginx config file name
+nginx_custom_conf: "custom_nginx.conf"

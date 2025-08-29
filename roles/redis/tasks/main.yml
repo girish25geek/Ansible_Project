@@ -1,0 +1,14 @@
+- name: Install Redis
+  apt:
+    name: redis-server
+    state: present
+    update_cache: yes
+  notify: restart redis
+
+- name: Set Redis password
+  lineinfile:
+    path: /etc/redis/redis.conf
+    regexp: '^# requirepass .*'
+    line: "requirepass {{ redis_password }}"
+  become: yes
+

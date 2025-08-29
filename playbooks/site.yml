@@ -1,0 +1,19 @@
+- hosts: webservers
+  become: yes
+  roles:
+    - nginx
+
+- hosts: postgres  # Only run postgres role on postgres host
+  become: yes
+  roles:
+    - postgres
+
+- hosts: redis     # Only run redis role on redis host  
+  become: yes
+  roles:
+    - redis
+
+- hosts: jenkins_servers
+  become: yes
+  roles:
+    - jenkins

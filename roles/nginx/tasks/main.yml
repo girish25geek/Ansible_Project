@@ -1,0 +1,17 @@
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  become: yes
+  notify: restart nginx
+
+- name: Copy custom nginx config
+  copy:
+    src: "{{ nginx_custom_conf }}"
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: restart nginx

@@ -1,0 +1,23 @@
+- name: Install PostgreSQL
+  apt:
+    name: 
+      - postgresql
+      - postgresql-contrib
+      - python3-psycopg2  # Required for Ansible PostgreSQL modules
+    state: present
+    update_cache: yes
+  notify: restart postgres
+
+- name: Start and enable PostgreSQL service
+  systemd:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Ensure postgres password is set
+  shell: |
+    sudo -u postgres psql -c "ALTER USER postgres PASSWORD '{{ postgres_password }}';"
+  register: postgres_password_result
+  changed_when: false
+  failed_when: postgres_password_result.rc != 0  # This is crucial - run as postgres user
+  
